@@ -25,6 +25,7 @@
     "pug": "^3.0.0",
     "pug-require": "^2.0.2",
     "quill": "^1.3.6",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "simple-git": "^3.7.1"
   }
 }
