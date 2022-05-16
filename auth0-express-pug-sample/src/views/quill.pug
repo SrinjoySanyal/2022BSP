@@ -26,23 +26,6 @@ block content
         alert(JSON.stringify(Version1));
       }
 
-      function mergingPreparation(version1, version0){
-        let array1 = [];
-        let index1 = 0;
-
-        for(element in version0){
-          if(element in version1.slice(index1 + 1, version1.length - 1)){
-          array1.push(version1.indexOf(element));
-          index1 = indexOf(element);
-          }
-        }
-
-      }
-
-      function totalFunction(){
-        createVersion1();
-      }
-
       document.querySelector('#save').addEventListener('click', () => createVersion1()); //just for debugging purpose
 
      
