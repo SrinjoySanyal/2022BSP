@@ -53,27 +53,34 @@ function uploadDelta(version1){
         }
       }
 
-      fs.writeFile('file.json', JSON.stringify(version0), (err) => {console.log(err);});
-      git.add('file.json').push();
-      git.branch('Merge-branch');
-      git.checkout({'-b':'Merge-branch'});
-      fs.writeFile('file.json', JSON.stringify(version1), (err) => {console.log(err);});
-      git.add('file.json').push();
-      git.checkout({'-b':'master'});
-      git.mergeFromTo("https://github.com/SrinjoySanyal/subrepo.git","master",{'-m':'"merged"'}, (msg, err) => {
+      fs.writeFile('file.json', JSON.stringify(version0), (err) => {
         if(err){
           console.log(err);
         }
         else{
-          console.log('Merge successful');
+          git.add('file.json').push().branch('Merge-branch').checkout({'-b':'Merge-branch'});
+          fs.writeFile('file.json', JSON.stringify(version1), (err) => {
+            if(err){
+              console.log(err);
+            }
+            else{
+              git.add('file.json').push().checkout({'-b':'master'}).merge("master","Merge-branch",{'-m':'"merged"'}, (msg, err) => {
+                if(err){
+                  console.log(err);
+                }
+                else{
+                  console.log('Merge successful');
+                }
+              }).deleteLocalBranch('Merge-branch');
+            }
+          });
         }
       });
-      git.deleteLocalBranch('Merge-branch') 
     }
   });
 }
 
-let test = '[{"ops":[{"insert":"hello"}]}]';
+let test = '[{"ops":[{"insert":"Srinjoy"}]}]';
 
 uploadDelta(JSON.parse(test));
 //uploadDelta(JSON.parse(test));
